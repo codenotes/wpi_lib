@@ -1,0 +1,883 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<title>IOLib version 4.0c</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF"
+vlink="#800080" alink="#FF0000">
+
+<p><font face="Verdana" size="4"><strong>IOLib version 4.0c</strong></font></p>
+
+<p><font size="3" face="Verdana"><a name="Using the IOLib library for C"><strong><u>Using the IOLib library for C</u></strong></a></font></p>
+
+<p><font size="2" face="Verdana">
+<strong><u>Contents</u></strong><br>
+<br>
+- <a href="#OutStream">OutStream</a><br>
+- <a href="#InStream">InStream</a><br>
+- <a href="#Writing your own filters">Writing your own filters</a><br>
+</p>
+
+<p><font size="2" face="Verdana"><a name="OutStream"><strong><u>OutStream</u></strong></a></font></p>
+
+<p><font size="2" face="Verdana">The following functions are available for processing OutStreams:</font></p>
+
+<blockquote>
+	<p><font color="#FF0000" size="1" face="Verdana">OutStream_New</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#FF0000" size="1" face="Verdana">OutStream_Free</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool
+	</font><font color="#FF0000" size="1" face="Verdana">OutStream_OutputNumberIntel</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana">, </font><font color="#0000FF"
+	size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana">
+	OutStream_OutputNumberRaw</font><font size="1" face="Verdana">(</font><font color="#0000FF"
+	size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF"
+	size="1" face="Verdana">long</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool
+	</font><font color="#FF0000" size="1" face="Verdana">OutStream_OutputNumberVAX</font><font
+	size="1" face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana">, </font><font color="#0000FF"
+	size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana">
+	OutStream_OutputNumberPBD</font><font size="1" face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF"
+	size="1" face="Verdana">long</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_OutputString</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">const char
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_OutputLine</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">const char
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_OutputData</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">const void *</font><font
+	size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana">
+	OutStream_SetPackageSize</font><font size="1" face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1"
+	face="Verdana">int</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_SetFilter</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">IOLibFilter *</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_RemoveFilter</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_Close</font><font
+	size="1" face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_Seek</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">long</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_RelSeek</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">long</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font color="#FF0000" size="1" face="Verdana">OutStream_WaitForClient</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">void</font><font
+	color="#FF0000" size="1" face="Verdana"> OutStream_Flush</font><font
+	size="1" face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br></font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font color="#FF0000" size="1"
+	face="Verdana"> OutStream_Size</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">long</font><font
+	color="#FF0000" size="1" face="Verdana">
+	OutStream_GetPos</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	color="#FF0000" size="1" face="Verdana">
+	OutStream_GetStreamType</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool
+	</font><font color="#FF0000" size="1" face="Verdana">OutStream_SetMode</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">long</font><font size="1"
+	face="Verdana">);<br></font><font color="#0000FF" size="1" face="Verdana">const char *</font><font
+	color="#FF0000" size="1" face="Verdana">OutStream_GetRemoteHostname</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">unsigned long</font><font
+	color="#FF0000" size="1" face="Verdana">
+	OutStream_GetRemoteIP</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font
+	color="#0000FF" size="1" face="Verdana">
+	void</font><font color="#FF0000" size="1" face="Verdana"> OutStream_Connect</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">OutStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1"
+	face="Verdana">int</font><font size="1" face="Verdana">, ...);</font></p>
+
+	<p><font size="2" face="Verdana"><u>OutStream_New(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This macro allocates memory for an OutStream
+	and initializes it correctly.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>OutStream_Free(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This macro closes the OutStream and frees the
+	allocated memory.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>void OutStream_Connect(OutStream *, int,
+	...)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">The first parameter
+	specifies the type of stream to be created. It can be one
+	of the following:</font></p>
+	<table border="1">
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_FILE</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_FILE, const char *filename, int
+		flag);<br><br>Parameter 'filename' specifies the name of the file to open
+		and 'flag' is one of the </font><font
+		color="#FF0000" size="1" face="Verdana">OS_APPEND</font><font
+		size="2" face="Verdana"> or </font><font
+		color="#FF0000" size="1" face="Verdana">OS_OVERWRITE</font><font
+		size="2" face="Verdana"> constants.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_POSIX</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_POSIX, int file);<br><br>
+		'file' specifies a POSIX file handle (i.e.
+		created with open()) to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_ANSI</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_ANSI, FILE *file);<br><br>
+		'file' specifies an ANSI file handle (i.e.
+		created with fopen()) to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_WINDOWS</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_WINDOWS, HFILE file);<br><br>
+		'file' specifies a Windows file handle (i.e.
+		created with _lopen()) to connect to.<br>This is only available on Windows platforms.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKET</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_SOCKET, SOCKET socket);<br><br>
+		'socket' specifies an open socket to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SERVER</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_SERVER, unsigned short
+		port);<br><br>'port' specifies a TCP/IP port to listen on.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_CLIENT</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_CLIENT, const char *hostname, unsigned short
+		port);<br><br>'hostname' specifies the name of the server to connect to and
+		'port' is the desired TCP/IP port.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS4_CLIENT</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_SOCKS4_CLIENT,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port);<br><br>'flag'
+		must be <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS4_NOAUTH</font>.<br> 'proxy' and 'proxyport' specify
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS4_BIND</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_SOCKS4_BIND,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port, const char *remotehost, unsigned short
+		*remoteport);<br><br>'flag' must be <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS4_NOAUTH</font>.<br> 'proxy' and 'proxyport'
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.<br>
+		'remotehost' points to a buffer which receives the hostname of the listening server, and 'remoteport'
+		is a pointer to an integer which receives the port number.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS5_CLIENT</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_SOCKS5_CLIENT,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port, [const char *username, const char
+		*password]);<br><br>'flag' is either <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_NOAUTH</font> or <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>.<br> 'proxy' and 'proxyport' specify
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.<br>
+		If 'flag' is <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>, then additional parameters 'username' and 'password'
+		specify the username and password to be used to connect to the SOCKS5 proxy.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS5_BIND</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_SOCKS5_BIND,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port, [const char *username, const char
+		*password], const char *remotehost, unsigned short *remoteport);<br><br>'flag'
+		is either <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_NOAUTH</font> or <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>.<br> 'proxy' and 'proxyport'
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.<br>
+		If 'flag' is <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>, then additional parameters 'username' and 'password'
+		specify the username and password to be used to connect to the SOCKS5 proxy.<br>
+		'remotehost' points to a buffer which receives the hostname of the listening server, and 'remoteport'
+		is a pointer to an integer which receives the port number.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_STREAM</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_STREAM, InStream *instream);<br><br>
+		'instream' specifies an InStream to link to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_BUFFER</font></td>
+		<td><font size="2" face="Verdana">OutStream_Connect(OutStream *, STREAM_BUFFER, void *buffer, long
+		size);<br><br>'buffer' specifies a pointer to a memory buffer
+		and 'size' specifies the size of that buffer.</font></td>
+		</tr>
+	</table>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_OutputNumber(OutStream *, long
+	, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function writes a
+	value to a stream. There are three versions of this
+	function in IOLib:</font></p>
+	<table border="0">
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">bool
+		OutStream_OutputNumberIntel(OutStream *, long, int)</font></td>
+		<td><font size="2" face="Verdana">writes values
+		in Intel Byte Order. You can write OutputNumber instead of
+		OutputNumberIntel either.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">bool
+		OutStream_OutputNumberRaw(OutStream *, long, int)</font></td>
+		<td><font size="2" face="Verdana">writes values
+		in Raw Byte Order.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">bool
+		OutStream_OutputNumberVAX(OutStream *, long, int)</font></td>
+		<td><font size="2" face="Verdana">writes values
+		in VAX Byte Order.</font></td>
+		</tr>
+	</table>
+	<p><font size="2" face="Verdana">The first parameter
+	specifies the value to be written to the stream. The
+	second parameter specifies the number of bytes to be used
+	(values from 1-8 bytes are allowed).</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_OutputNumberPBD(OutStream *, long
+	, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function writes a
+	PBD value to a stream. The first parameter specifies the
+	value to be written to the stream and the second
+	parameter specifies the number of bits to be used (values
+	from 1-64 bits are allowed).</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_OutputString(OutStream *, const char *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function writes a
+	string to a stream. The parameter specifies the string to
+	be written to the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_OutputLine(OutStream *, const char *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This is the same as
+	the OutputString() method, but a LF or CRLF is added
+	automatically.<br>
+	This function is very useful for writing config files etc., since
+	it automatically cares about LF and CRLF returns.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_OutputData(OutStream *, void *,
+	int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function writes raw
+	data to the stream. The first parameter specifies the
+	memory buffer containing the data. The second parameter
+	specifies the number of bytes to be written to the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_SetPackageSize(OutStream *, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Specifies the number of
+	bytes to be collected before anything is written to the
+	stream. The default package size is 131072 bytes.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_SetFilter(OutStream *, IOLibFilter *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Specifies the filter to
+	be used for writing data to the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_RemoveFilter(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Removes the currently
+	used filter.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_Seek(OutStream *, long)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Sets the cursor position
+	in the stream. This function does not work for socket
+	streams.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_RelSeek(OutStream *, long)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Sets the cursor position
+	in the stream relative to the current position. This
+	function does not work for socket streams.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_Close(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Closes the stream. This
+	function is automatically invoked by the destructor, but
+	you can close the stream earlier by calling this function
+	from your code.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>OutStream *OutStream_WaitForClient(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This functions works
+	only for streams of type </font><font color="#FF0000"
+	size="1" face="Verdana">STREAM_SERVER</font><font
+	size="2" face="Verdana">, </font><font color="#FF0000"
+	size="1" face="Verdana">STREAM_SOCKS4_BIND</font><font
+	size="2" face="Verdana"> or </font><font color="#FF0000"
+	size="1" face="Verdana">STREAM_SOCKS5_BIND</font><font
+	size="2" face="Verdana">. It waits for a client to
+	connect to the server and establishes a connection. The
+	returned OutStream is an interface to the socket
+	connected to client.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>void OutStream_Flush(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Writes all data from the
+	internal buffers to the stream, ignoring the package size
+	setting.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>long OutStream_Size(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This method reports the size of the stream
+	associated with the InStream. It returns -1 if the stream is not open.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>long OutStream_GetPos(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns the current
+	cursor position in the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>int OutStream_GetStreamType(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns one of the </font><font
+	color="#FF0000" size="1" face="Verdana">STREAM_</font><font
+	size="2" face="Verdana">* constants that specify the type
+	of the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool OutStream_SetMode(OutStream *, long)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This method works
+	only for sockets. It returns true on success, false on error. The parameter specifies the blocking
+	mode of the socket. It can be one of the following:</font></p>
+	<table border="0">
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">MODE_SOCKET_BLOCKING</font></td>
+		<td><font size="2" face="Verdana">The socket is set to blocking mode (default)</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">MODE_SOCKET_NONBLOCKING</font></td>
+		<td><font size="2" face="Verdana">The socket is set to nonblocking mode</font></td>
+		</tr>
+	</table>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>const char *OutStream_GetRemoteHostname(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns the hostname of the remote host
+	that the streams socket is connected to.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>unsigned long OutStream_GetRemoteIP(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns the IP address of the remote host
+	that the streams socket is connected to. The IP is returned in
+	network byte order.</font></p>
+	</blockquote>
+</blockquote>
+
+<p><font size="2" face="Verdana"><a name="InStream"><strong><u>InStream</u></strong></a></font></p>
+
+<p><font size="2" face="Verdana">The following functions are available for processing InStreams:</font></p>
+
+<blockquote>
+	<p><font color="#FF0000" size="1" face="Verdana">InStream_New</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#FF0000" size="1" face="Verdana">InStream_Free</font><font size="1"
+	face="Verdana">(</font><font color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana"> </font><font
+	color="#FF0000" size="1" face="Verdana">InStream_InputNumberIntel</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana"> </font><font
+	color="#FF0000" size="1" face="Verdana">InStream_InputNumberRaw</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana"> </font><font
+	color="#FF0000" size="1" face="Verdana">InStream_InputNumberVAX</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana"> </font><font
+	color="#FF0000" size="1" face="Verdana">InStream_InputNumberPBD</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">char
+	*</font><font color="#FF0000" size="1" face="Verdana">InStream_InputString</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">char
+	*</font><font color="#FF0000" size="1" face="Verdana">InStream_InputLine</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">char
+	*</font><font color="#FF0000" size="1" face="Verdana">InStream_InputSocketString</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">void
+	*</font><font color="#FF0000" size="1" face="Verdana">InStream_InputData</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">void
+	*</font><font size="1" face="Verdana">,
+	</font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	size="1" face="Verdana"> </font><font color="#FF0000"
+	size="1" face="Verdana">InStream_SetPackageSize</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool
+	</font><font color="#FF0000" size="1" face="Verdana">InStream_SetFilter</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">IOLibFilter
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	size="1" face="Verdana"> </font><font color="#FF0000"
+	size="1" face="Verdana">InStream_RemoveFilter</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	size="1" face="Verdana"> </font><font color="#FF0000"
+	size="1" face="Verdana">InStream_Close</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool</font><font
+	size="1" face="Verdana"> </font><font color="#FF0000"
+	size="1" face="Verdana">InStream_Seek</font><font size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">long</font><font
+	size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool
+	</font><font color="#FF0000" size="1" face="Verdana">InStream_RelSeek</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font color="#0000FF" size="1" face="Verdana">long
+	</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font color="#FF0000" size="1" face="Verdana">InStream_WaitForClient</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br></font><font size="1" color="#0000FF"
+	face="Verdana">long</font><font size="1" color="#FF0000"
+	face="Verdana"> InStream_Size</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">long</font><font
+	color="#FF0000" size="1" face="Verdana">
+	InStream_GetPos</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">int</font><font
+	color="#FF0000" size="1" face="Verdana">
+	InStream_GetStreamType</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">bool
+	</font><font color="#FF0000" size="1" face="Verdana">InStream_SetMode</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">long</font><font size="1"
+	face="Verdana">);<br></font><font color="#0000FF" size="1" face="Verdana">const char *</font><font
+	color="#FF0000" size="1" face="Verdana">InStream_GetRemoteHostname</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">unsigned long</font><font
+	color="#FF0000" size="1" face="Verdana">
+	InStream_GetRemoteIP</font><font size="1"
+	face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">);<br>
+	</font><font color="#0000FF" size="1" face="Verdana">void </font><font color="#FF0000" size="1" face="Verdana">InStream_Connect</font><font
+	size="1" face="Verdana">(</font><font
+	color="#0000FF" size="1" face="Verdana">InStream
+	*</font><font size="1" face="Verdana">, </font><font
+	color="#0000FF" size="1" face="Verdana">int</font><font
+	size="1" face="Verdana">, ...);</font></p>
+
+	<p><font size="2" face="Verdana"><u>InStream_New(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This macro allocates memory for an InStream
+	and initializes it correctly.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>InStream_Free(OutStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This macro closes the InStream and frees the
+	allocated memory.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>void InStream_Connect(InStream *, int,
+	...)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">The first parameter
+	specifies the type of stream to be created. It can be one
+	of the following:</font></p>
+	<table border="1">
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_FILE</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_FILE, const char
+		*filename);<br><br>Parameter 'filename' specifies the name of the file to open.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_POSIX</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_POSIX, int file);<br><br>
+		'file' specifies a POSIX file handle (i.e.
+		created with open()) to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_ANSI</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_ANSI, FILE *file);<br><br>
+		'file' specifies an ANSI file handle (i.e.
+		created with fopen()) to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_WINDOWS</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_WINDOWS, HFILE file);<br><br>
+		'file' specifies a Windows file handle (i.e.
+		created with _lopen()) to connect to.<br>This is only available on Windows platforms.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKET</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_SOCKET, SOCKET socket);<br><br>
+		'socket' specifies an open socket to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SERVER</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_SERVER, unsigned short
+		port);<br><br>'port' specifies a TCP/IP port to listen on.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_CLIENT</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_CLIENT, const char *hostname, unsigned short
+		port);<br><br>'hostname' specifies the name of the server to connect to and
+		'port' is the desired TCP/IP port.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS4_CLIENT</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_SOCKS4_CLIENT,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port);<br><br>'flag'
+		must be <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS4_NOAUTH</font>.<br> 'proxy' and 'proxyport' specify
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS4_BIND</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_SOCKS4_BIND,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port, const char *remotehost, unsigned short
+		*remoteport);<br><br>'flag' must be <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS4_NOAUTH</font>.<br> 'proxy' and 'proxyport'
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.<br>
+		'remotehost' points to a buffer which receives the hostname of the listening server, and 'remoteport'
+		is a pointer to an integer which receives the port number.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS5_CLIENT</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_SOCKS5_CLIENT,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port, [const char *username, const char
+		*password]);<br><br>'flag' is either <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_NOAUTH</font> or <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>.<br> 'proxy' and 'proxyport' specify
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.<br>
+		If 'flag' is <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>, then additional parameters 'username' and 'password'
+		specify the username and password to be used to connect to the SOCKS5 proxy.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_SOCKS5_BIND</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_SOCKS5_BIND,
+		int flag, const char *proxy, unsigned short proxyport, const char *server, unsigned short port, [const char *username, const char
+		*password], const char *remotehost, unsigned short *remoteport);<br><br>'flag'
+		is either <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_NOAUTH</font> or <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>.<br> 'proxy' and 'proxyport'
+		specify the hostname and the TCP/IP port of the SOCKS5 proxy to connect to. 'server' and 'port'
+		specify the hostname and the TCP/IP port of the application server to connect to.<br>
+		If 'flag' is <font color="#FF0000" size="1"
+		face="Verdana">STREAM_SOCKS5_AUTH</font>, then additional parameters 'username' and 'password'
+		specify the username and password to be used to connect to the SOCKS5 proxy.<br>
+		'remotehost' points to a buffer which receives the hostname of the listening server, and 'remoteport'
+		is a pointer to an integer which receives the port number.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_STREAM</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_STREAM, OutStream *outstream);<br><br>
+		'outstream' specifies an OutStream to link to.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">STREAM_BUFFER</font></td>
+		<td><font size="2" face="Verdana">InStream_Connect(InStream *, STREAM_BUFFER, void *buffer, long
+		size);<br><br>'buffer' specifies a pointer to a memory buffer
+		and 'size' specifies the size of that buffer.</font></td>
+		</tr>
+	</table>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>long InStream_InputNumber(InStream *, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function reads a
+	value from a stream. There are three versions of this
+	function in IOLib:</font></p>
+	<table border="0">
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">long
+		InStream_InputNumberIntel(InStream *, int)</font></td>
+		<td><font size="2" face="Verdana">reads values in
+		Intel Byte Order. You can write InputNumber instead of InputNumberIntel either.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">long
+		InStream_InputNumberRaw(InStream *, int)</font></td>
+		<td><font size="2" face="Verdana">reads values in
+		Raw Byte Order.</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">long
+		InStream_InputNumberVAX(InStream *, int)</font></td>
+		<td><font size="2" face="Verdana">reads values in
+		VAX Byte Order.</font></td>
+		</tr>
+	</table>
+	<p><font size="2" face="Verdana">The parameter specifies
+	the number of bytes to be read from the stream (values
+	from 1-8 bytes are allowed). The returned value is the
+	value read from the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>long InStream_InputNumberPBD(InStream *, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function reads a
+	PBD value from a stream. The parameter specifies the
+	number of bits to be read from the file (values from 1-64
+	bits are allowed). The returned value is the value read
+	from the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>char *InStream_InputString(InStream *, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function reads a
+	string from a stream. The parameter specifies the number
+	of bytes to be read. The returned string is the string
+	read from the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>char *InStream_InputLine(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function reads all
+	characters until the next LF or CRLF. The LF/CRLF is stripped
+	from the returned string.<br>
+	This function is very useful for reading text files.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>void *InStream_InputData(InStream *, void *,
+	int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function reads raw
+	data from the stream. The first parameter specifies the
+	memory buffer to receive the data. The second parameter
+	specifies the number of bytes to be read from the stream.
+	The function returns a pointer to the memory buffer
+	specified in parameter one.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>char *InStream_InputSocketString(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This function reads as
+	many bytes as possible from the stream. It only works for
+	socket streams. It returns a pointer to the string read
+	from the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_SetPackageSize(InStream *, int)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Specifies the number of
+	bytes to be read from the stream at one time. The default
+	package size is 131072 bytes.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_SetFilter(InStream *, IOLibFilter *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Specifies the filter to
+	be used for reading data from the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_RemoveFilter(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Removes the currently
+	used filter.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_Seek(InStream *, long)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Sets the cursor position
+	in the stream. This function does not work for socket
+	streams.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_RelSeek(InStream *, long)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Sets the cursor position
+	in the stream relative to the current position. This
+	function does not work for socket streams.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_Close(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Closes the stream. This
+	function is automatically invoked by the destructor, but
+	you can close the stream earlier by calling this function
+	from your code.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>InStream *InStream_WaitForClient(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This functions works
+	only for streams of type </font><font color="#FF0000"
+	size="1" face="Verdana">STREAM_SERVER</font><font
+	size="2" face="Verdana">, </font><font color="#FF0000"
+	size="1" face="Verdana">STREAM_SOCKS4_BIND</font><font
+	size="2" face="Verdana"> or </font><font color="#FF0000"
+	size="1" face="Verdana">STREAM_SOCKS5_BIND</font><font
+	size="2" face="Verdana">. It waits for a client to
+	connect to the server and establishes a connection. The
+	returned InStream is an interface to the socket connected
+	to client.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>long InStream_Size(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This method reports the size of the stream
+	associated with the InStream. It returns -1 if the stream is not open.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>long InStream_GetPos(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns the current
+	cursor position in the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>int InStream_GetStreamType(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns one of the </font><font
+	color="#FF0000" size="1" face="Verdana">STREAM_</font><font
+	size="2" face="Verdana">* constants that specify the type
+	of the stream.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>bool InStream_SetMode(InStream *, long)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">This method works
+	only for sockets. It returns true on success, false on error. The parameter specifies the blocking
+	mode of the socket. It can be one of the following:</font></p>
+	<table border="0">
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">MODE_SOCKET_BLOCKING</font></td>
+		<td><font size="2" face="Verdana">The socket is set to blocking mode (default)</font></td>
+		</tr>
+		<tr>
+		<td><font color="#FF0000" size="1" face="Verdana">MODE_SOCKET_NONBLOCKING</font></td>
+		<td><font size="2" face="Verdana">The socket is set to nonblocking mode</font></td>
+		</tr>
+	</table>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>const char *InStream_GetRemoteHostname(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns the hostname of the remote host
+	that the streams socket is connected to.</font></p>
+	</blockquote>
+	<p><font size="2" face="Verdana"><u>unsigned long InStream_GetRemoteIP(InStream *)</u></font></p>
+	<blockquote>
+	<p><font size="2" face="Verdana">Returns the IP address of the remote host
+	that the streams socket is connected to. The IP is returned in
+	network byte order.</font></p>
+	</blockquote>
+</blockquote>
+
+<p><font size="2" face="Verdana"><a name="Writing your own filters"><strong><u>Writing your own filters</u></strong></a></font></p>
+	<p><font size="2" face="Verdana">Writing filters for IOLib-C is a bit complicated. I suggest
+	that you have a look at the XOR-Filter in the 'iolib-c/test' directory and at the filters
+	that come with the IOLib-Filters distribution.</font></p>
+</body>
+</html>

@@ -1,0 +1,140 @@
+# Makefile for shared IOLib version 4.0c for Cygwin
+
+INCLUDEDIR = $(IOLIBDIR)/include
+OBJECTDIR = $(IOLIBDIR)/objects
+LIBDIR = $(IOLIBDIR)/lib
+TESTDIR = $(IOLIBDIR)/test
+SRCDIR = $(IOLIBDIR)/src
+
+OBJECTS = $(OBJECTDIR)/iolib.o $(OBJECTDIR)/iolibfilter.o $(OBJECTDIR)/iolibstream.o $(OBJECTDIR)/instream.o $(OBJECTDIR)/outstream.o
+EXE1OBJECTS = $(OBJECTDIR)/test.o $(OBJECTDIR)/xorfilter.o
+EXE2OBJECTS = $(OBJECTDIR)/client.o
+EXE3OBJECTS = $(OBJECTDIR)/server.o
+
+DLLNAME = $(LIBDIR)/iolib$(INCLUDEEXT).dll
+LIBNAME = $(LIBDIR)/libiolib$(INCLUDEEXT).a
+EXPNAME = $(LIBDIR)/iolib$(INCLUDEEXT).exp
+DEFNAME = $(LIBDIR)/iolib$(INCLUDEEXT).def
+EXE1NAME = $(TESTDIR)/test.exe
+EXE2NAME = $(TESTDIR)/client.exe
+EXE3NAME = $(TESTDIR)/server.exe
+
+COMPILER = gcc
+LINKER = dllwrap
+EXELINKER = gcc
+REMOVER = rm
+ECHO = echo
+STRIP = strip
+INSTALLER = install
+COMPILER_OPTS = -I$(INCLUDEDIR) -march=i586 -O6 -ffast-math -Wall -fno-exceptions -c
+LINKER_OPTS = --export-all -L$(LIBDIR) -mwindows --output-lib $(LIBNAME) --output-exp $(EXPNAME) --output-def $(DEFNAME) -o $(DLLNAME)
+EXELINKER_OPTS = -L$(LIBDIR) -liolib$(INCLUDEEXT) $(OTHERLIBS) -o
+REMOVER_OPTS = -f
+STRIP_OPTS = --strip-all
+
+.PHONY: all install uninstall clean
+.SILENT:
+
+all: $(OBJECTS) $(EXE1OBJECTS) $(EXE2OBJECTS) $(EXE3OBJECTS) $(LIBNAME) $(EXE1NAME) $(EXE2NAME) $(EXE3NAME)
+
+install: all
+	$(ECHO) -n Creating directories...
+	$(INSTALLER) -d $(PREFIX)
+	$(INSTALLER) -d $(PREFIX)/include
+	$(INSTALLER) -d $(PREFIX)/lib
+	$(INSTALLER) -d $(PREFIX)/bin
+	$(ECHO) done.
+	$(ECHO) -n Installing files...
+	$(INSTALLER) $(INCLUDEDIR)/instream$(INCLUDEEXT).h $(PREFIX)/include
+	$(INSTALLER) $(INCLUDEDIR)/iolib$(INCLUDEEXT).h $(PREFIX)/include
+	$(INSTALLER) $(INCLUDEDIR)/iolibfilter$(INCLUDEEXT).h $(PREFIX)/include
+	$(INSTALLER) $(INCLUDEDIR)/iolibstream$(INCLUDEEXT).h $(PREFIX)/include
+	$(INSTALLER) $(INCLUDEDIR)/outstream$(INCLUDEEXT).h $(PREFIX)/include
+	$(INSTALLER) $(LIBNAME) $(PREFIX)/lib
+	$(INSTALLER) $(DLLNAME) $(PREFIX)/bin
+	$(ECHO) done.
+
+uninstall:
+	$(ECHO) -n Removing files...
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/include/instream$(INCLUDEEXT).h
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/include/iolib$(INCLUDEEXT).h
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/include/iolibfilter$(INCLUDEEXT).h
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/include/iolibstream$(INCLUDEEXT).h
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/include/outstream$(INCLUDEEXT).h
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/lib/libiolib$(INCLUDEEXT).a
+	$(REMOVER) $(REMOVER_OPTS) $(PREFIX)/bin/iolib$(INCLUDEEXT).dll
+	$(ECHO) done.
+
+clean:
+	$(ECHO) -n Cleaning directories...
+	$(REMOVER) $(REMOVER_OPTS) $(OBJECTS) $(EXE1OBJECTS) $(EXE2OBJECTS) $(EXE3OBJECTS) $(LIBNAME) $(EXE1NAME) $(EXE2NAME) $(EXE3NAME) $(TESTDIR)/test.log $(EXPNAME) $(DEFNAME) $(DLLNAME)
+	$(ECHO) done.
+
+$(LIBNAME): $(OBJECTS)
+	$(ECHO) Linking $(DLLNAME)...
+	$(LINKER) $(LINKER_OPTS) $(OBJECTS) -lwsock32 $(OTHERLIBS)
+	$(STRIP) $(STRIP_OPTS) $(DLLNAME)
+	$(ECHO) done.
+
+$(EXE1NAME): $(LIBNAME) $(EXE1OBJECTS)
+	$(ECHO) -n Linking $(EXE1NAME)...
+	$(EXELINKER) $(EXE1OBJECTS) $(EXELINKER_OPTS) $(EXE1NAME)
+	$(STRIP) $(STRIP_OPTS) $(EXE1NAME)
+	$(ECHO) done.
+
+$(EXE2NAME): $(LIBNAME) $(EXE2OBJECTS)
+	$(ECHO) -n Linking $(EXE2NAME)...
+	$(EXELINKER) $(EXE2OBJECTS) $(EXELINKER_OPTS) $(EXE2NAME)
+	$(STRIP) $(STRIP_OPTS) $(EXE2NAME)
+	$(ECHO) done.
+
+$(EXE3NAME): $(LIBNAME) $(EXE3OBJECTS)
+	$(ECHO) -n Linking $(EXE3NAME)...
+	$(EXELINKER) $(EXE3OBJECTS) $(EXELINKER_OPTS) $(EXE3NAME)
+	$(STRIP) $(STRIP_OPTS) $(EXE3NAME)
+	$(ECHO) done.
+
+$(OBJECTDIR)/iolibfilter.o: $(INCLUDEDIR)/iolibfilter$(INCLUDEEXT).h $(SRCDIR)/iolibfilter$(SRCEXT)
+	$(ECHO) -n Compiling $(SRCDIR)/iolibfilter$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)/iolibfilter$(SRCEXT) -o $(OBJECTDIR)/iolibfilter.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/iolibstream.o: $(INCLUDEDIR)/iolibstream$(INCLUDEEXT).h $(SRCDIR)/iolibstream$(SRCEXT)
+	$(ECHO) -n Compiling $(SRCDIR)/iolibstream$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)/iolibstream$(SRCEXT) -o $(OBJECTDIR)/iolibstream.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/instream.o: $(INCLUDEDIR)/instream$(INCLUDEEXT).h $(SRCDIR)/instream$(SRCEXT)
+	$(ECHO) -n Compiling $(SRCDIR)/instream$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)/instream$(SRCEXT) -o $(OBJECTDIR)/instream.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/outstream.o: $(INCLUDEDIR)/outstream$(INCLUDEEXT).h $(SRCDIR)/outstream$(SRCEXT)
+	$(ECHO) -n Compiling $(SRCDIR)/outstream$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)/outstream$(SRCEXT) -o $(OBJECTDIR)/outstream.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/iolib.o: $(INCLUDEDIR)/iolib$(INCLUDEEXT).h $(SRCDIR)/iolib$(SRCEXT)
+	$(ECHO) -n Compiling $(SRCDIR)/iolib$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)/iolib$(SRCEXT) -o $(OBJECTDIR)/iolib.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/test.o: $(TESTDIR)/test$(SRCEXT)
+	$(ECHO) -n Compiling $(TESTDIR)/test$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) $(TESTDIR)/test$(SRCEXT) -o $(OBJECTDIR)/test.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/xorfilter.o: $(TESTDIR)/xorfilter$(SRCEXT)
+	$(ECHO) -n Compiling $(TESTDIR)/xorfilter$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) $(TESTDIR)/xorfilter$(SRCEXT) -o $(OBJECTDIR)/xorfilter.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/client.o: $(TESTDIR)/client$(SRCEXT)
+	$(ECHO) -n Compiling $(TESTDIR)/client$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) $(TESTDIR)/client$(SRCEXT) -o $(OBJECTDIR)/client.o
+	$(ECHO) done.
+
+$(OBJECTDIR)/server.o: $(TESTDIR)/server$(SRCEXT)
+	$(ECHO) -n Compiling $(TESTDIR)/server$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) $(TESTDIR)/server$(SRCEXT) -o $(OBJECTDIR)/server.o
+	$(ECHO) done.

@@ -1,0 +1,370 @@
+# ChangeLog for IOLib
+
+12.01.2002 - IOLib version 4.0c
+
+- applied a patch for InStream::InputLine that fixes a data curruption bug
+- applied a patch that makes IOLib work on SGI Irix machines
+- changed the port number in the client/server test to 17000 to avoid conflicts 
+
+22.08.2001 - IOLib version 4.0b
+
+- applied the changes to IOLib-C and IOLib-ObjC
+- updated the documentation
+
+19.08.2001 - IOLib version 4.0b-pre
+
+- fixed some memory leaks
+
+04.07.2001 - IOLib version 4.0a
+
+- great speed improvements for InputData/OutputData and InputString/OutputString
+- updated the documentation
+
+04.06.2001 - IOLib version 4.0
+
+- added support for connections to open sockets
+- added a better test program
+- fixed VAX Hex format bug
+
+03.06.2001 - IOLib version 3.9.26.0
+
+- code cleanups
+- renamed 'class Filter' to 'class IOLibFilter'
+- added support for Windows file handles
+- updated the documentation
+
+02.06.2001 - IOLib version 3.9.25.0
+
+- fixed incompatibilities with GCC 3.0
+
+28.05.2001 - IOLib version 3.9.24.0
+
+- replaced the 'char *' parameters of OutputString and so with 'const char *' to enhance compatibility with some string libraries
+- updated the docs
+
+04.05.2001 - IOLib version 3.9.23.0 alias 4.0-pre2
+
+- ported the library to FreeBSD, Solaris and Tru64 Unix
+- fixed byte order problems on non i386 platforms
+- fixed makefiles
+
+23.03.2001 - IOLib version 3.9.22.0
+
+- sockets are closed properly in Windows
+- fixed bugs in the the SOCKS implementation
+- new function: unsigned long IOLibStream::GetRemoteIP() - returns the IP of a remote host
+- new function: char *IOLibStream::GetRemoteHostname() - returns the hostname of a remote host
+- updated the documentation
+
+08.02.2001 - IOLib version 3.9.21.0
+
+- fixed return value checking after open(...)
+
+20.01.2001 - IOLib version 3.9.20.0 alias 4.0-pre1
+
+- fixed a bug in InStream
+- fixed buggy macros in IOLib-C and IOLib-ObjC
+- updated the documentation
+- made 4.0-pre1 release
+
+19.01.2001 - IOLib version 3.9.19.0
+
+- added support for SOCKS4A connections
+- updated the docs
+
+18.01.2001 - IOLib version 3.9.18.0
+
+- updated the documentation
+- renamed SOCKS5_SERVER to SOCKS5_BIND
+
+17.01.2001 - IOLib version 3.9.17.0
+
+- tested and fixed the SOCKS4 BIND command support
+- renamed iolibfilters* to iolibfilter*
+
+16.01.2001 - IOLib version 3.9.16.1
+
+- changed some parameter names
+- added support for the SOCKS5 BIND command
+
+16.01.2001 - IOLib version 3.9.16.0
+
+- added simple (CONNECT only) SOCKS5 proxy support
+- updated the documentation
+- socket OutStreams are now flushed after an OutputString, OutputLine or OutputData
+- socket OutStreams are now flushed before a crosslinked InStream reads any data
+
+15.01.2001 - IOLib version 3.9.15.0
+
+- completed the implementation of the new filter API
+- tested and fixed the new filter API
+- tested and optimized memory buffer IO
+
+14.01.2001 - IOLib version 3.9.14.0
+
+- removed some pitfalls from InStream and OutStream
+- completed the IOLib-ObjC documentation
+- reviewed the IOLib-C++ documentation
+- added documentation for IOLib-C
+
+13.01.2001 - IOLib version 3.9.13.0
+
+- renamed the IOLib-C++ directory to iolib-cxx for compatibility reasons
+- fixed bugs in the makefiles
+- improved the ObjC port
+- added documentation for IOLib-ObjC
+
+12.01.2001 - IOLib version 3.9.12.0
+
+- modified the filter API to support compression/decompression filters
+- filters can now specify a package size of -1 to indicate that they want to filter the whole file in one step
+- the XOR filter is no longer part of the official IOLib distribution. It is rather part of an optional iolib-filters distribution
+- ported IOLib-C to lcc-win32
+
+11.01.2001 - IOLib version 3.9.11.0
+
+- you can now write InputNumberIntel/OutputNumberIntel instead of InputNumber/OutputNumber
+- updated the docs
+
+28.12.2000 - IOLib version 3.9.10.0
+
+- adjusted the IOLib-C function names to match the function names in IOLib-C++ and IOLib-ObjC
+
+24.12.2000 - IOLib version 3.9.9.0
+
+- removed the objc-shared targets for cygwin and mingw
+- fixed the Unix makefiles
+
+23.12.2000 - IOLib version 3.9.8.0
+
+- modified the C port to use va_lists
+- modified the Objective-C port to use va_lists
+- the Objective-C port doesn't build as a Windows DLL currently
+
+22.12.2000 - IOLib version 3.9.7.0
+
+- completed the Objective-C port (though it's very dirty, yet)
+
+20.12.2000 - IOLib version 3.9.6.0
+
+- added makefile targets for installing and uninstalling the library
+
+19.12.2000 - IOLib version 3.9.5.0
+
+- started the Objective-C port
+- merged the different source trees
+- created a comfortable build system
+
+18.12.2000 - IOLib version 3.9.4.0
+
+- completed the C port
+
+12.12.2000 - IOLib version 3.9.3.0
+
+- initial C port: IOLib-C
+- the former ActPos() methods are now named GetPos()
+
+10.12.2000 - IOLib version 3.9.2.0
+
+- removed the 65k limit for InputLine()
+
+09.12.2000 - IOLib version 3.9.1.0
+
+- added 2 new functions: InputLine() and OutputLine()
+- updated the Unix and Cygwin Makefiles - should work with GNU Make < 3.79 now
+- removed the -Wall Parameter from the GCC command line for BeOS
+
+28.11.2000 - IOLib version 3.3
+
+- updated documentation
+
+28.11.2000 - IOLib version 3.2.3.0
+
+- allow SetPackageSize() on OutStream socket connections
+- do not flush a socket stream after every action (~98-99% speedup)
+
+21.11.2000 - IOLib version 3.2.2.0
+
+- workaround for a bad iostream implementation on some targets
+
+15.11.2000 - IOLib version 3.2.1.0
+
+- fixed warnings in instream.cpp and outstream.cpp
+
+29.10.2000 - IOLib version 3.2
+
+- moved more variables to IOLibStream
+- some bugfixes
+
+28.10.2000 - IOLib version 3.1.3.0
+
+- added many speedups
+
+25.10.2000 - IOLib version 3.1.2.0
+
+- moved GetStreamType to IOLibStream
+- moved some variables to IOLibStream
+
+23.10.2000 - IOLib version 3.1.1.0
+
+- the InStream and OutStream are now derived from a base class called IOLibStream
+- added a SetMode(long) function which allows to switch between blocking and nonblocking mode for sockets
+- corrected the packagesize values
+
+22.10.2000 - IOLib version 3.1a
+
+- fixed handling of signed integers
+
+20.10.2000 - IOLib version 3.1
+
+- ported to MSVC
+- ported to BeOS
+- ported to QNX
+- ported to Cygwin
+- ported to BCC (static library only)
+- ported to DOS (static library only, no support for sockets)
+- removed the long longs
+- support for all CPU architectures
+
+17.10.2000 - IOLib version 3.0b
+
+- copyright() Funktion entfernt
+
+03.10.2000 - IOLib version 3.0a
+
+- einige Sicherheitsabfragen eingebaut
+
+23.09.2000 - IOLib version 3.0
+
+- Dokumentation aktualisiert
+
+18.09.2000 - IOLib version 3.0-pre4
+
+- Filter funktionieren jetzt korrekt
+
+05.09.2000 - IOLib version 3.0-pre3
+
+- InputString(void) heisst jetzt InputSocketString() und lässt sich nur noch auf Sockets anwenden
+
+01.09.2000 - IOLib version 3.0-pre2
+
+- Socket Unterstützung verbessert (automatisches Flushing)
+- InStreams lesen Daten nicht mehr automatisch, wenn sie mit Sockets verbunden sind
+
+13.08.2000 - IOLib version 3.0-pre1
+
+- multiclient Unterstützung integriert
+- kleine API Änderung
+
+12.08.2000 - IOLib version 2.9.7.0
+
+- Neues Filtersystem integriert
+- Fehler behoben
+
+11.08.2000 - IOLib version 2.9.6.1
+
+- InputNumber und OutputNumber für VAX Byte Order integriert
+- Fehler behoben
+
+11.08.2000 - IOLib version 2.9.6.0
+
+- crosslinking integriert (Konstruktor von InStream übernimmt einen OutStream und umgekehrt)
+- Socketfähigkeiten vervollständigt
+
+09.06.2000 - IOLib version 2.9.5.0
+
+- kann jetzt auch als Windows oder Linux DLL erzeugt werden
+
+07.06.2000 - IOLib version 2.9.4.1
+
+- IOLib nach Linux portiert
+
+07.06.2000 - IOLib version 2.9.4.0
+
+- tell Funktion für nicht-Windows-Systeme integriert
+
+29.05.2000 - IOLib version 2.9.3.0
+
+- Vorbereitung auf Socket Fähigkeit
+- packagesize ist bei POSIX Streams jetzt gleich 1, da es Sockets sein könnten
+
+15.05.2000 - IOLib version 2.9.2.0
+
+- OutStream benutzt jetzt packagesize = 1 für Speicherpuffer
+
+05.04.2000 - IOLib version 2.9.1.0
+
+- Fehlerbehandlung verbessert (keine Abstürze mehr, beim Zugriff auf nicht vorhandene Dateien)
+
+03.03.2000 - IOLib version 2.1
+
+- Kann sich jetzt auch mit ANSI C Filehandles verbinden
+- Fehler bei read/write Operationen behoben
+- Filterungsfehler behoben
+- Kann jetzt direkt aus Speicherpuffern schreiben (OutStream)
+- Kann jetzt direkt in Speicherpuffer schreiben (InStream)
+- Version 2.1 fertiggestellt
+
+02.03.2000 - IOLib version 2.0.99.0
+
+- Kann sich jetzt auch mit Speicherpuffern verbinden
+- Close() wertet jetzt closefile Variable aus
+
+28.01.2000 - IOLib version 2.0
+
+- Version 2.0 fertiggestellt
+- benutzt jetzt lowlevel POSIX Befehle für File IO
+- kann jetzt auch auf bereits offene Dateien adaptiert werden
+
+28.01.2000 - IOLib version 1.9.3.0
+
+- Ist jetzt unabhängig von der Windows API
+- Man kann zur Zeit nicht in OutStreams zurückseeken
+
+26.01.2000 - IOLib version 1.9.2.0
+
+- Filterfunktionen überarbeitet
+- XOR Filter integriert
+- packagesize kann jetzt nicht mehr verändert werden, wenn ein Filter gesetzt ist
+- Seeking mit Filtern ein wenig entschärft (trotzdem noch gefährlich!)
+
+25.01.2000 - IOLib version 1.9.1.0
+
+- Filterfunktionen hinzugefügt (SetFilter(), RemoveFilter())
+- neue Datei filters.cpp, die einige Standardfilter enthält (z.Z. nur NULLFILTER())
+- Version 2.0 wird fertiggestellt, wenn Cryptofilter fertiggestellt und Fehler behoben sind
+- Bei der Verwendung von Filtern mit InStreams sollte man genau wissen, was man tut (vor
+  allem beim Seeking), da man sonst sehr schnell Datenmüll erhält
+- Empfehlung: Zuerst ein paar ID-Bytes schreiben und dann einen Filter setzen, damit man
+  später weiss, das ein Filter benutzt wurde
+
+25.12.1999 - IOLib version 1.2a
+
+- iotools.cpp aufgelöst
+
+22.12.1999 - IOLib version 1.2
+
+- Version auf 1.2 erhöht
+- 'open' Fehler im InStream behoben
+- Testprogramm 'iotest' integriert
+
+21.12.1999 - IOLib version 1.1.2.0
+
+- Definitionen für OutStream Parameter hinzugefügt
+- OutStream::OutStream(char *, int) hinzugefügt. 2. Parameter ist der Modus (APPEND oder OVERWRITE).
+- Funktion SetPackageSize(int) hinzugefügt. Setzt die größe der Datenmenge, die auf einmal in eine Datei geschrieben werden.
+- kleinere Fehler behoben
+
+17.11.1999 - IOLib version 1.1
+
+- Versionsnummer auf 1.1 erhöht, da keine weiteren Fehler mehr gefunden wurden
+
+16.11.1999 - IOLib version 1.0.99.1
+
+- Strukturanpassungen in den Destruktoren
+
+13.11.1999 - IOLib version 1.0.99.0
+
+- Versionsnummer auf 1.0.99.0 gesetzt
+- Close() Funktion hinzugefügt
+- kleinere Fehler behoben

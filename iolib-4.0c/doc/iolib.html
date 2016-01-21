@@ -1,0 +1,167 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<title>IOLib version 4.0c</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF"
+vlink="#800080" alink="#FF0000">
+
+<p><font size="4" face="Verdana"><strong>IOLib version 4.0c</strong></font></p>
+
+<table border="0">
+	<tr>
+		<td><font size="2" face="Verdana">Official homepage:</font></td>
+		<td><a href="http://iolib.sourceforge.net"><font size="2"
+	face="Verdana">http://iolib.sourceforge.net</font></a></td>
+	</tr>
+	<tr>
+		<td><font size="2" face="Verdana">eMail:</font></td>
+		<td><a href="mailto:robert.kausch@gmx.net"><font size="2"
+		face="Verdana">robert.kausch@gmx.net</font></a></td>
+	</tr>
+</table>
+
+<p><font size="2" face="Verdana">This software is released under
+the terms of the GNU Library General Public License (LGPL). See
+the file 'Copying.lib' for details.<br>
+<br>
+<strong><u>Contents</u></strong><br>
+<br>
+- <a href="#What's new in IOLib 4.0c">What's new in IOLib 4.0c</a><br>
+- <a href="#About the author">About the author</a><br>
+- <a href="#What is IOLib?">What is IOLib?</a><br>
+- <a href="#Why do I need it?">Why do I need it?</a><br>
+- <a href="#How do I use it?">How do I use it?</a><br>
+- <a href="#Reporting bugs">Reporting bugs</a><br>
+<br>
+<a name="What's new in IOLib 4.0c"><strong><u>What's new in IOLib 4.0c</u></strong></a><br>
+<br>
+The following things have been added or changed since release 4.0b:
+
+<blockquote>
+	- applied a patch for InStream::InputLine that fixes a data curruption bug<br>
+	- applied a patch that makes IOLib work on SGI Irix machines<br>
+	- changed the port number in the client/server test to 17000 to avoid conflicts on machines running qotd servers<br>
+	<br>
+	Note: IOLib 4.0c is binary compatible with older 4.0 versions.
+</blockquote>
+
+<a name="About the author"><strong><u>About
+the author</u></strong></a><br><br>
+IOLib was written by Robert Kausch. You can contact me at <a href="mailto:robert.kausch@gmx.net">robert.kausch@gmx.net</a>.<br>
+<br>
+I am an 18 year old student from Lueneburg/Germany. I started writing computer programs in 1994. My
+first programming language was QBasic (it was part of MS-DOS). In 1996 I started to write Windows
+applications with GFA-Basic (a mixture of Basic, Pascal and C). After a hard disk failure in mid 1998
+nearly all my source code was lost and so I bought a book about C++ and started learning.<br>
+Currently I'm maintaining two OpenSource projects. <a href="http://smooth.sourceforge.net">SMOOTH</a>
+and <a href="http://iolib.sourceforge.net">IOLib</a>.<br>
+<br>
+<a name="What is IOLib?"><strong><u>What
+is IOLib?</u></strong></a><br><br>
+IOLib is a universal multiplatform IO library. It is implemented in C, C++ and Objective-C and
+is available for many different platforms. IOLib provides an unified interface for accessing
+different types of streams.<br><br>
+IOLib supports multiple kinds of data IO:
+
+<blockquote>
+	- Integer IO in Intel HEX order<br>
+	- Integer IO in RAW HEX order<br>
+	- Integer IO in VAX HEX order<br>
+	- Bit by bit IO (PBD)<br>
+	- String IO<br>
+	- Raw data IO
+</blockquote>
+
+It supports the following types of streams:
+
+<blockquote>
+	- POSIX files<br>
+	- ANSI files<br>
+	- Windows file handles<br>
+	- BSD sockets<br>
+	- SOCKS4 connections<br>
+	- SOCKS5 connections<br>
+	- memory buffers
+</blockquote>
+
+IOLib provides two classes
+&gt;InStream&lt; and &gt;OutStream&lt; which provide input and
+output mechanisms (you cannot use input and output operations
+with one single object, but you can create a crosslinked stream).<br>
+<br>
+<a name="Why do I need it?"><strong><u>Why
+do I need it?</u></strong></a><br><br>
+So which advantages does IOLib have over other solutions?<br>
+The great advantage of IOLib is, that it provides an unified
+interface to different types of streams. It doesn't matter
+what type of stream you intend to access, the interface is always
+the same.<br>
+Another important point is that IOLib is compatible with many
+different operating systems and that implementations are available in
+different programming languages (currently in C, C++, Objective C).<br>
+Furthermore, if you are using IOLib you
+don't have to care about the byte order in your binary files
+anymore. IOLib supports Intel, Motorola (Raw) and VAX byte
+order and automatically adjusts to the host machine.<br>
+A new feature of IOLib 2.0 was the capability of filtering your
+data before writing it to a file. The filter support has been
+improved in the 4.x series. The API now supports compression/decompression
+filters and filters that have to process a file in one step.<br>
+<br>
+<a name="How do I use it?"><strong><u>How
+do I use it?</u></strong></a><br><br>
+First you have to compile IOLib for your system. Since this release, IOLib is compatible
+with the following operating systems and compilers:
+
+<blockquote>
+	- Linux GCC<br>
+	- Windows GCC-MinGW32 (no shared Objective C library)<br>
+	- Windows GCC-Cygwin (no shared Objective C library)<br>
+	- Windows MS Visual C++ (C and C++ libraries only)<br>
+	- Windows Borland C++ (static C and C++ libraries only)<br>
+	- Windows LCC-Win32 (C libraries only)<br>
+	- BeOS GCC<br>
+	- QNX GCC<br>
+	- DOS GCC-DJGPP (static libraries only, no socket support)<br>
+	- FreeBSD GCC<br>
+	- Tru64 Unix Compaq C (static C library only)<br>
+	- Solaris GCC<br>
+	- SGI Irix GCC<br>
+	- possibly some others, porting should be easy
+</blockquote>
+
+If you want to have your compiler/OS supported send me a download URL or send a copy to my home address (ask for it via eMail).<br><br>
+
+Just type 'make' ('nmake' for MSVC, 'make -s' for LCC) in the distribution directory to get a list of the available targets. Then type 'make [target]' to
+compile IOLib for your system and programming language.<br>
+Type 'make [target]-install' to install the library in the default prefix (usually /usr/local or /usr)
+and optionally 'make [target]-clean' to clean the build directory.<br>
+You can change the install prefix by editing the toplevel makefile.<br><br>
+
+Please choose your programming language:<br><br>
+<blockquote>
+<a href="iolib-c.html">C</a><br>
+<a href="iolib-c++.html">C++</a><br>
+<a href="iolib-objc.html">Objective C</a><br></p>
+</blockquote>
+
+<p><a name="Reporting bugs"><font size="2" face="Verdana"><strong><u>Reporting
+bugs</u></strong></font></a><font size="2" face="Verdana"><br>
+<br>
+If you think you've found a bug in IOLib please submit a full bug
+report including a detailed description of how to reproduce the
+bug (it would be very nice if you included the source code that
+produces the bug in your report). If possible, please write a
+patch that fixes the bug and send it along with the report.<br>
+<br>
+If you have found any bugs in IOLib please contact me at <a href="mailto:robert.kausch@gmx.net">
+robert.kausch@gmx.net</a>.<br><br>Please visit the official IOLib homepage at </font><a
+href="http://iolib.sourceforge.net"><font size="2" face="Verdana">iolib.sourceforge.net</font></a><font
+size="2" face="Verdana"> and try the newest release of IOLib
+first!</font></p>
+</body>
+</html>

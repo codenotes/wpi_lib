@@ -1,0 +1,102 @@
+# Makefile for shared IOLib version 4.0c for LCC Win32
+
+INCLUDEDIR = $(IOLIBDIR)\include
+OBJECTDIR = $(IOLIBDIR)\objects
+LIBDIR = $(IOLIBDIR)\lib
+TESTDIR = $(IOLIBDIR)\test
+SRCDIR = $(IOLIBDIR)\src
+
+OBJECTS = $(OBJECTDIR)\iolib.obj $(OBJECTDIR)\iolibfilter.obj $(OBJECTDIR)\iolibstream.obj $(OBJECTDIR)\instream.obj $(OBJECTDIR)\outstream.obj
+EXE1OBJECTS = $(OBJECTDIR)\test.obj $(OBJECTDIR)\xorfilter.obj
+EXE2OBJECTS = $(OBJECTDIR)\client.obj
+EXE3OBJECTS = $(OBJECTDIR)\server.obj
+
+DLLNAME = $(LIBDIR)\iolib$(INCLUDEEXT).dll
+LIBNAME = $(LIBDIR)\iolib$(INCLUDEEXT).lib
+EXPNAME = $(LIBDIR)\iolib$(INCLUDEEXT).exp
+EXE1NAME = $(TESTDIR)\test.exe
+EXE2NAME = $(TESTDIR)\client.exe
+EXE3NAME = $(TESTDIR)\server.exe
+
+COMPILER = @lcc
+LINKER = @lcclnk
+EXELINKER = @lcclnk
+REMOVER = @del
+ECHO = @echo
+COMPILER_OPTS = -I$(INCLUDEDIR) -O -c
+LINKER_OPTS = -dll -s -o $(DLLNAME)
+EXELINKER_OPTS = -s wsock32.lib $(LIBNAME) -o 
+
+all: $(OBJECTS) $(EXE1OBJECTS) $(EXE2OBJECTS) $(EXE3OBJECTS) $(LIBNAME) $(DLLNAME) $(EXPNAME) $(EXE1NAME) $(EXE2NAME) $(EXE3NAME)
+
+install:
+
+clean:
+	$(ECHO) Cleaning directories...
+	$(REMOVER) $(REMOVER_OPTS) $(OBJECTS) $(EXE1OBJECTS) $(EXE2OBJECTS) $(EXE3OBJECTS) $(LIBNAME) $(EXE1NAME) $(EXE2NAME) $(EXE3NAME) $(DLLNAME) $(EXPNAME) $(TESTDIR)\test.log
+	$(ECHO) done.
+
+$(LIBNAME): $(OBJECTS)
+	$(ECHO) Linking $(DLLNAME)...
+	$(LINKER) $(LINKER_OPTS) $(OBJECTS) wsock32.lib
+	$(ECHO) done.
+
+$(EXE1NAME): $(LIBNAME) $(EXE1OBJECTS)
+	$(ECHO) Linking $(EXE1NAME)...
+	$(EXELINKER) $(EXE1OBJECTS) $(EXELINKER_OPTS) $(EXE1NAME)
+	$(ECHO) done.
+
+$(EXE2NAME): $(LIBNAME) $(EXE2OBJECTS)
+	$(ECHO) Linking $(EXE2NAME)...
+	$(EXELINKER) $(EXE2OBJECTS) $(EXELINKER_OPTS) $(EXE2NAME)
+	$(ECHO) done.
+
+$(EXE3NAME): $(LIBNAME) $(EXE3OBJECTS)
+	$(ECHO) Linking $(EXE3NAME)...
+	$(EXELINKER) $(EXE3OBJECTS) $(EXELINKER_OPTS) $(EXE3NAME)
+	$(ECHO) done.
+
+$(OBJECTDIR)\iolibfilter.obj: $(INCLUDEDIR)\iolibfilter$(INCLUDEEXT).h $(SRCDIR)\iolibfilter$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\iolibfilter$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)\iolibfilter$(SRCEXT) -Fo$(OBJECTDIR)\iolibfilter.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\iolibstream.obj: $(INCLUDEDIR)\iolibstream$(INCLUDEEXT).h $(SRCDIR)\iolibstream$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\iolibstream$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)\iolibstream$(SRCEXT) -Fo$(OBJECTDIR)\iolibstream.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\instream.obj: $(INCLUDEDIR)\instream$(INCLUDEEXT).h $(SRCDIR)\instream$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\instream$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)\instream$(SRCEXT) -Fo$(OBJECTDIR)\instream.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\outstream.obj: $(INCLUDEDIR)\outstream$(INCLUDEEXT).h $(SRCDIR)\outstream$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\outstream$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)\outstream$(SRCEXT) -Fo$(OBJECTDIR)\outstream.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\iolib.obj: $(INCLUDEDIR)\iolib$(INCLUDEEXT).h $(SRCDIR)\iolib$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\iolib$(SRCEXT)...
+	$(COMPILER) -DIOLIB_DLL $(COMPILER_OPTS) $(SRCDIR)\iolib$(SRCEXT) -Fo$(OBJECTDIR)\iolib.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\test.obj: $(TESTDIR)\test$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\test$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) -I$(TESTDIR) $(TESTDIR)\test$(SRCEXT) -Fo$(OBJECTDIR)\test.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\xorfilter.obj: $(TESTDIR)\xorfilter$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\xorfilter$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) -I$(TESTDIR) $(TESTDIR)\xorfilter$(SRCEXT) -Fo$(OBJECTDIR)\xorfilter.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\client.obj: $(TESTDIR)\client$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\client$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) $(TESTDIR)\client$(SRCEXT) -Fo$(OBJECTDIR)\client.obj
+	$(ECHO) done.
+
+$(OBJECTDIR)\server.obj: $(TESTDIR)\server$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\server$(SRCEXT)...
+	$(COMPILER) $(COMPILER_OPTS) $(TESTDIR)\server$(SRCEXT) -Fo$(OBJECTDIR)\server.obj
+	$(ECHO) done.

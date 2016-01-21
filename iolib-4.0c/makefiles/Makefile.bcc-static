@@ -1,0 +1,138 @@
+# Makefile for static IOLib version 4.0c for Borland C++
+
+INCLUDEDIR = $(IOLIBDIR)\include
+OBJECTDIR = $(IOLIBDIR)\objects
+LIBDIR = $(IOLIBDIR)\lib
+TESTDIR = $(IOLIBDIR)\test
+SRCDIR = $(IOLIBDIR)\src
+
+OBJECTS = $(OBJECTDIR)\iolib.obj $(OBJECTDIR)\iolibfilter.obj $(OBJECTDIR)\iolibstream.obj $(OBJECTDIR)\instream.obj $(OBJECTDIR)\outstream.obj
+EXE1OBJECTS = $(OBJECTDIR)\test.obj $(OBJECTDIR)\xorfilter.obj
+EXE2OBJECTS = $(OBJECTDIR)\client.obj
+EXE3OBJECTS = $(OBJECTDIR)\server.obj
+
+LIBNAME = $(LIBDIR)\iolib$(INCLUDEEXT).lib
+EXE1NAME = $(TESTDIR)\test.exe
+EXE2NAME = $(TESTDIR)\client.exe
+EXE3NAME = $(TESTDIR)\server.exe
+
+COMPILER = bcc32
+LINKER = tlib
+EXELINKER = bcc32
+REMOVER = del
+ECHO = echo
+CHDIR = cd
+COPIER = xcopy
+COMPILER_OPTS = -I..\include -O2 -5 -D_BCC -c
+LINKER_OPTS = /a "$(LIBNAME)"
+EXELINKER_OPTS = -L..\lib iolib$(INCLUDEEXT).lib
+
+.PHONY: all install clean
+.SILENT:
+
+all: $(OBJECTS) $(EXE1OBJECTS) $(EXE2OBJECTS) $(EXE3OBJECTS) $(LIBNAME) $(EXE1NAME) $(EXE2NAME) $(EXE3NAME)
+
+install:
+
+clean:
+	$(ECHO) Cleaning directories...
+	$(REMOVER) $(OBJECTS) $(EXE1OBJECTS) $(EXE2OBJECTS) $(EXE3OBJECTS) $(LIBNAME) $(EXE1NAME) $(EXE2NAME) $(EXE3NAME) $(TESTDIR)\test.log
+	$(ECHO) done.
+
+$(LIBNAME): $(OBJECTS)
+	$(ECHO) Linking $(LIBNAME)...
+	$(LINKER) $(LINKER_OPTS) "$(OBJECTDIR)\iolib.obj" "$(OBJECTDIR)\iolibfilter.obj" "$(OBJECTDIR)\iolibstream.obj" "$(OBJECTDIR)\instream.obj" "$(OBJECTDIR)\outstream.obj"
+	$(ECHO) done.
+
+$(EXE1NAME): $(LIBNAME) $(EXE1OBJECTS)
+	$(ECHO) Linking $(EXE1NAME)...
+	$(CHDIR) $(IOLIBDIR)\test
+	$(EXELINKER) $(EXELINKER_OPTS) ..\objects\test.obj ..\objects\xorfilter.obj -o.\test.exe
+	$(COPIER) ..\objects\test.exe .
+	$(REMOVER) ..\objects\test.exe
+	$(REMOVER) ..\objects\test.tds
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(EXE2NAME): $(LIBNAME) $(EXE2OBJECTS)
+	$(ECHO) Linking $(EXE2NAME)...
+	$(CHDIR) $(IOLIBDIR)\test
+	$(EXELINKER) $(EXELINKER_OPTS) ..\objects\client.obj
+	$(COPIER) ..\objects\client.exe .
+	$(REMOVER) ..\objects\client.exe
+	$(REMOVER) ..\objects\client.tds
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(EXE3NAME): $(LIBNAME) $(EXE3OBJECTS)
+	$(ECHO) Linking $(EXE3NAME)...
+	$(CHDIR) $(IOLIBDIR)\test
+	$(EXELINKER) $(EXELINKER_OPTS) ..\objects\server.obj
+	$(COPIER) ..\objects\server.exe .
+	$(REMOVER) ..\objects\server.exe
+	$(REMOVER) ..\objects\server.tds
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\iolibfilter.obj: $(INCLUDEDIR)\iolibfilter$(INCLUDEEXT).h $(SRCDIR)\iolibfilter$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\iolibfilter$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) -Ddllimport=dllexport ..\src\iolibfilter$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\iolibstream.obj: $(INCLUDEDIR)\iolibstream$(INCLUDEEXT).h $(SRCDIR)\iolibstream$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\iolibstream$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) -Ddllimport=dllexport ..\src\iolibstream$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\instream.obj: $(INCLUDEDIR)\instream$(INCLUDEEXT).h $(SRCDIR)\instream$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\instream$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) -Ddllimport=dllexport ..\src\instream$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\outstream.obj: $(INCLUDEDIR)\outstream$(INCLUDEEXT).h $(SRCDIR)\outstream$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\outstream$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) -Ddllimport=dllexport ..\src\outstream$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\iolib.obj: $(INCLUDEDIR)\iolib$(INCLUDEEXT).h $(SRCDIR)\iolib$(SRCEXT)
+	$(ECHO) Compiling $(SRCDIR)\iolib$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) -Ddllimport=dllexport ..\src\iolib$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\test.obj: $(TESTDIR)\test$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\test$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) ..\test\test$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\xorfilter.obj: $(TESTDIR)\xorfilter$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\xorfilter$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) ..\test\xorfilter$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\client.obj: $(TESTDIR)\client$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\client$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) ..\test\client$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.
+
+$(OBJECTDIR)\server.obj: $(TESTDIR)\server$(SRCEXT)
+	$(ECHO) Compiling $(TESTDIR)\server$(SRCEXT)...
+	$(CHDIR) $(IOLIBDIR)\objects
+	$(COMPILER) $(COMPILER_OPTS) ..\test\server$(SRCEXT)
+	$(CHDIR) ..\..
+	$(ECHO) done.

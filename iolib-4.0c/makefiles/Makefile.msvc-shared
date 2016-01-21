@@ -1,0 +1,163 @@
+# Makefile for shared IOLib version 4.0c for MS Visual C++
+
+CPP=@cl.exe
+ECHO=@echo
+
+LIBDIR=$(IOLIBDIR)/lib
+OBJECTDIR=$(IOLIBDIR)/objects
+TESTDIR=$(IOLIBDIR)/test
+SRCDIR=$(IOLIBDIR)/src
+INCLUDEDIR=$(IOLIBDIR)/include
+
+ALL : "$(LIBDIR)/iolib$(INCLUDEEXT).dll" "$(TESTDIR)/test.exe" "$(TESTDIR)/server.exe" "$(TESTDIR)/client.exe"
+
+CLEAN :
+	$(ECHO) Cleaning directories...
+	-@erase "$(OBJECTDIR)\iolibfilter.obj"
+	-@erase "$(OBJECTDIR)\iolibstream.obj"
+	-@erase "$(OBJECTDIR)\instream.obj"
+	-@erase "$(OBJECTDIR)\outstream.obj"
+	-@erase "$(OBJECTDIR)\iolib.obj"
+	-@erase "$(OBJECTDIR)\test.obj"
+	-@erase "$(OBJECTDIR)\xorfilter.obj"
+	-@erase "$(OBJECTDIR)\server.obj"
+	-@erase "$(OBJECTDIR)\client.obj"
+	-@erase "$(OBJECTDIR)\vc60.idb"
+	-@erase "$(OBJECTDIR)\iolib$(INCLUDEEXT).pch"
+	-@erase "$(LIBDIR)\iolib$(INCLUDEEXT).lib"
+	-@erase "$(LIBDIR)\iolib$(INCLUDEEXT).exp"
+	-@erase "$(LIBDIR)\iolib$(INCLUDEEXT).dll"
+	-@erase "$(TESTDIR)\test.exe"
+	-@erase "$(TESTDIR)\client.exe"
+	-@erase "$(TESTDIR)\server.exe"
+	-@erase "$(TESTDIR)\test.log"
+	$(ECHO) done.
+
+CPP_PROJ=/nologo /ML /W3 /GX /O2 /I "$(INCLUDEDIR)" /D "__WIN32__" /D "NDEBUG" /D "_MBCS" /D "_USRDLL" /D "IOLIB_DLL" /Fp"$(OBJECTDIR)\iolib$(INCLUDEEXT).pch" /YX /Fo"$(OBJECTDIR)\\" /Fd"$(OBJECTDIR)\\" /FD /c 
+
+CPP_PROJ_EXE=/nologo /ML /W3 /GX /O2 /I "$(INCLUDEDIR)" /D "__WIN32__" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(OBJECTDIR)\iolib$(INCLUDEEXT).pch" /Fo"$(OBJECTDIR)\\" /Fd"$(OBJECTDIR)\\" /FD /c
+
+LINKDLL32=@link.exe
+LINKDLL32_FLAGS=wsock32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\iolib$(INCLUDEEXT).pdb" /machine:I386 /out:"$(LIBDIR)\iolib$(INCLUDEEXT).dll" /implib:"$(LIBDIR)\iolib$(INCLUDEEXT).lib"
+LINKDLL32_OBJS= \
+	"$(OBJECTDIR)\iolibfilter.obj" \
+	"$(OBJECTDIR)\iolibstream.obj" \
+	"$(OBJECTDIR)\instream.obj" \
+	"$(OBJECTDIR)\outstream.obj" \
+	"$(OBJECTDIR)\iolib.obj"
+
+LINK32=@link.exe
+LINK32_FLAGS=wsock32.lib /libpath:"$(LIBDIR)" iolib$(INCLUDEEXT).lib /nologo /subsystem:console /incremental:no /pdb:"$(TESTDIR)\iolib$(INCLUDEEXT).pdb" /machine:I386
+
+"$(TESTDIR)/test.exe" : "$(TESTDIR)" $(DEF_FILE) "$(OBJECTDIR)/test.obj" "$(OBJECTDIR)/xorfilter.obj"
+    $(LINK32) @<<
+  $(LINK32_FLAGS) /out:"$(TESTDIR)/test.exe" "$(OBJECTDIR)/test.obj" "$(OBJECTDIR)/xorfilter.obj"
+<<
+
+"$(TESTDIR)/client.exe" : "$(TESTDIR)" $(DEF_FILE) "$(OBJECTDIR)/client.obj"
+    $(LINK32) @<<
+  $(LINK32_FLAGS) /out:"$(TESTDIR)/client.exe" "$(OBJECTDIR)/client.obj"
+<<
+
+"$(TESTDIR)/server.exe" : "$(TESTDIR)" $(DEF_FILE) "$(OBJECTDIR)/server.obj"
+    $(LINK32) @<<
+  $(LINK32_FLAGS) /out:"$(TESTDIR)/server.exe" "$(OBJECTDIR)/server.obj"
+<<
+
+"$(LIBDIR)/iolib$(INCLUDEEXT).dll" : "$(LIBDIR)" $(DEF_FILE) $(LINKDLL32_OBJS)
+    $(LINKDLL32) @<<
+  $(LINKDLL32_FLAGS) $(DEF_FLAGS) $(LINKDLL32_OBJS)
+<<
+
+.c{$(OBJECTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(OBJECTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(OBJECTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(OBJECTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(OBJECTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(OBJECTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+SOURCE=$(SRCDIR)/iolibfilter$(SRCEXT)
+
+"$(OBJECTDIR)\iolibfilter.obj" : $(SOURCE) "$(OBJECTDIR)"
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(SRCDIR)/iolibstream$(SRCEXT)
+
+"$(OBJECTDIR)\iolibstream.obj" : $(SOURCE) "$(OBJECTDIR)"
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(SRCDIR)/instream$(SRCEXT)
+
+"$(OBJECTDIR)\instream.obj" : $(SOURCE) "$(OBJECTDIR)"
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(SRCDIR)/outstream$(SRCEXT)
+
+"$(OBJECTDIR)\outstream.obj" : $(SOURCE) "$(OBJECTDIR)"
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(SRCDIR)/iolib$(SRCEXT)
+
+"$(OBJECTDIR)\iolib.obj" : $(SOURCE) "$(OBJECTDIR)"
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(TESTDIR)/test$(SRCEXT)
+
+"$(OBJECTDIR)\test.obj": $(SOURCE)
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ_EXE) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(TESTDIR)/xorfilter$(SRCEXT)
+
+"$(OBJECTDIR)\xorfilter.obj": $(SOURCE)
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ_EXE) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(TESTDIR)/client$(SRCEXT)
+
+"$(OBJECTDIR)\client.obj": $(SOURCE)
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ_EXE) $(SOURCE)
+	$(ECHO) done.
+
+SOURCE=$(TESTDIR)/server$(SRCEXT)
+
+"$(OBJECTDIR)\server.obj": $(SOURCE)
+	$(ECHO) Compiling $(SOURCE)...
+	$(CPP) $(CPP_PROJ_EXE) $(SOURCE)
+	$(ECHO) done.
